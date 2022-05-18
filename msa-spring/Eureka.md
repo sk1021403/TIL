@@ -18,3 +18,39 @@ MSA에서는 서비스의 IP, Port가 지속적으로 변화하고 이때마다 
 
 클라이언트 측 로드 밸런서 - Ribbon
 
+### 3. 설정 방법
+
+* build.gradle 의존성 추가
+```
+dependencies {
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+```
+* application.yml
+```
+spring:
+  application:
+    name: eureka
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false  // register에 등록할지 말지 
+    fetch-registry: false        // register에 대한 정보 가져올건지
+```
+
+* @EnableEurekaServer 추가
+```
+@EnableEurekaServer
+@SpringBootApplication
+public class EurekaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EurekaApplication.class, args);
+	}
+}
+
+```
